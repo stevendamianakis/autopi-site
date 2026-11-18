@@ -451,6 +451,9 @@ section[id], [data-section] { scroll-margin-top: calc(var(--bar) + 12px); }
 .codebox .copy.copied { border-color: #5BC77F; color: #7BE0A0; }
 .codebox .copy.copied .i-copy { display: none; }
 .codebox .copy.copied .i-check { display: block; }
+/* Sideways scrollers are positioned, so absolutely positioned descendants (the screen-reader labels in
+ * the coverage table's header) stay inside them instead of widening the page on phones. */
+.fig-scroll, .cov-scroll, .score-scroll { position: relative; }
 /* a frame around a sideways scroller: a fade marks the edge that hides more */
 .frame { position: relative; }
 .frame::before, .frame::after {
@@ -467,6 +470,8 @@ section[id], [data-section] { scroll-margin-top: calc(var(--bar) + 12px); }
 .code-card > p { margin-top: 6px; color: var(--ink-2); }
 .code-card .codebox { flex: 1; display: flex; }
 .code-card .codebox pre { flex: 1; min-width: 0; }
+/* the first line of a code card never runs under its Copy button */
+.code-card .codebox.has-copy pre { padding-top: 46px; }
 .code-card .fine { margin-top: 12px; font-size: 13px; color: var(--ink-3); }
 .buttons.after { margin-top: 28px; }
 

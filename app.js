@@ -7,7 +7,7 @@
    * Fill them in here and nowhere else. While one is empty, its buttons read "soon". */
   var LINKS = {
     arxivId: '',   // for example '2611.01234'
-    code: ''       // for example 'https://github.com/<account>/autopi'
+    code: 'https://github.com/stevendamianakis/autopi'
   };
 
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
@@ -89,7 +89,7 @@
     var foot = document.getElementById('foot-code');
     var a = el('a', null, LINKS.code.replace(/^https?:\/\//, ''));
     a.href = LINKS.code; a.target = '_blank'; a.rel = 'noopener noreferrer';
-    foot.appendChild(document.createTextNode(' Code and data: '));
+    foot.appendChild(document.createTextNode(' Code: '));
     foot.appendChild(a);
     foot.appendChild(document.createTextNode('.'));
   }
@@ -334,23 +334,23 @@
   window.addEventListener('scroll', function () { if (!tip.hidden) hideTip(); }, { passive: true });
 
   /* ------------------------------------------------------------------ strategy picker */
-  var RUN = 'autopi run --benchmark agentdojo \\\n  --target vllm:8000:qwen36 \\\n  --refiner vllm:8000:qwen36 \\\n  ';
-  var OUT = ' \\\n  --logdir ./runs';
+  var RUN = 'autopi run --benchmark agentdojo \\\n  --target vllm:8000:MODEL_ID \\\n  --refiner vllm:8000:MODEL_ID \\\n  --strategy configs/strategies/';
+  var OUT = '.yaml \\\n  --logdir ./runs';
   var STRATEGIES = {
     coverage: {
       name: 'AutoPI-Full', attempts: 529, tech: 31, asr: 42.9, cost: 1.0,
       blocks: { seed: 'the fixed seed', sweep: 'all 132 sub-techniques', sweepx: '3 variants of each failed line' },
-      cmd: RUN + '-k 3 --max-attempts 529' + OUT
+      cmd: RUN + 'full' + OUT
     },
     asr: {
       name: 'AutoPI-Seed-Exploit', attempts: 601, tech: 20, asr: 68.2, cost: 0.75,
       blocks: { seed: 'the fixed seed', seedx: '600 rewrites of the seed' },
-      cmd: RUN + '--seed-only -k 601 --max-attempts 601' + OUT
+      cmd: RUN + 'seed-exploit' + OUT
     },
     cost: {
       name: 'AutoPI-L1', attempts: 133, tech: 26, asr: 24.4, cost: 0.3,
       blocks: { seed: 'the fixed seed', sweep: 'all 132 sub-techniques' },
-      cmd: RUN + '--max-attempts 133' + OUT
+      cmd: RUN + 'l1' + OUT
     }
   };
   function pick(goal) {
