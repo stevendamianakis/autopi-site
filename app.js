@@ -6,7 +6,7 @@
    * The two addresses that exist only once the paper and the code are public.
    * Fill them in here and nowhere else. While one is empty, its buttons read "soon". */
   var LINKS = {
-    arxivId: '',   // for example '2611.01234'
+    arxivId: '2611.24313',
     code: 'https://github.com/stevendamianakis/autopi'
   };
 
